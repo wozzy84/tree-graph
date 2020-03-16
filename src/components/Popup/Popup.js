@@ -1,61 +1,75 @@
-
-import React from 'react';
+import React from "react";
 import Modal from "react-modal";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import shortid from 'shortid'
 
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+const modalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)"
   }
 };
- 
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement('#root')
-function Popup(){
-  var subtitle;
-  const [modalIsOpen,setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
- 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
- 
-  function closeModal(){
-    setIsOpen(false);
-  }
- 
-    return (
-      <div>
-        <button onClick={openModal}>Open Modal</button>
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
- 
-          <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
-          <button onClick={closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
-        </Modal>
-      </div>
-    );
-}
 
-  export default Popup
+
+Modal.setAppElement("#root");
+
+const Popup = () => {
+  const dispatch = useDispatch();
+
+  const modalIsOpen = useSelector(state => state.OpenModal);
+  const [localInput, setLocalInput] = useState("");
+
+  let subtitle;
+
+  const afterOpenModal = () => {
+    subtitle.style.color = "#f00";
+  };
+
+  const closeModal = () => {
+    dispatch({
+      type: "INPUT_VALUE",
+      value: localInput,
+      id: shortid.generate()
+      
+    });
+    dispatch({
+      type: "OPEN_MODAL",
+      value: false
+    });
+
+    setLocalInput("");
+  };
+
+  const handleChange = e => {
+    setLocalInput(e.currentTarget.value);
+  };
+
+  return (
+    <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalStyle}
+      >
+        <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
+        <form onSubmit={closeModal}>
+          <input value={localInput} onChange={handleChange} />
+          <button>tab navigation</button>
+          <button>stays</button>
+          <button>inside</button>
+          <button>the modal</button>
+        </form>
+      </Modal>
+    </div>
+  );
+};
+
+export default Popup;

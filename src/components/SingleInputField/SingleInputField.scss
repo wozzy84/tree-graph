@@ -1,17 +1,27 @@
 .input-area {    
     width: 50px;
+    height: auto;
     border-bottom: 1px solid black;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .single-input-field{
     position: relative;
-    min-height: 80px;
-    width: 200px;
-    background-color: violet;
-    margin-left:30px;
-    transform: translate(0%, 50%);
+    color: #4B597B;
+    min-height: 50px;
+    z-index: auto;
+    width: 220px;
+    border-radius: 8px;
+    background: linear-gradient(#a376f4, #7176f7);
+    margin-left:50px;
+    margin-bottom: 20px;
+    margin-top:20px;
+    box-shadow: 2px 3px 7px 1px rgba(0,0,0,0.22);
+    
 }
+
+
 
 .single-input-field::before {
     display: block;
@@ -20,5 +30,70 @@
     height: 20px;
     position: absolute;
     left: -100px;
-    top:35px;
+    top: calc(50% - 7px);
+    color:lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    
+}
+
+.single-input-field__bar::after {
+    display: block;
+    content: "";
+
+    width: 50px;
+    height: 50%;
+    border-bottom: 1px solid lightgrey;
+    position: absolute;
+    left: -50px;
+    top: 0px
+
+}
+
+.single-input-field__bar {
+    display: flex;
+    min-height: 50px;
+    max-width: 190px;
+    background-color: white;
+    margin-left: 10px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border:1px solid transparent;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+    padding-left:10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    letter-spacing: 0.3px;
+    word-wrap: break-word;
+    word-break: break-all;
+    z-index: 4;
+
+}
+
+.single-input-field__button {
+    border-radius: 50%;
+    border: none;
+    min-width: 25px;
+    max-width: 25px;
+    height: 25px;
+    background-color: rgb(242, 99, 135);
+    box-shadow: 2px 3px 7px 1.2px rgba(242,99,135,0.32); 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    
+}
+
+.single-input-field__button-minus{
+    display: block;
+    width: 10px;
+    height: 3px;
+    background-color: white;
+}
+
+.single-input-field__text {
+    padding: 4px;
 }

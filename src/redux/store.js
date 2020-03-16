@@ -1,17 +1,20 @@
-import { createStore, combineReducers} from "redux";
+import { createStore, combineReducers, applyMiddleware} from "redux";
+import logger from "redux-logger"
 
 import {
-  loggedUser,
+InputValue, OpenModal
 
 } from "./reducers";
 
 
 const reducers = combineReducers({
-  loggedUser: loggedUser,
+  InputValue: InputValue,
+  OpenModal: OpenModal
+
  
 });
 
 //store
-const store = createStore(reducers);
+const store = createStore(reducers,  applyMiddleware(logger));
 
 export { store };

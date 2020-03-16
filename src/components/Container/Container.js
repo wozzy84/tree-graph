@@ -2,13 +2,21 @@ import React from "react";
 import SingleInputField from "../SingleInputField/SingleInputField";
 import { useState } from "react";
 import Popup from "../Popup/Popup";
-
+import {useDispatch, useSelector} from 'react-redux'
 
 const Container = () => {
-  const [newElement, setNewElement] = useState([1]);
+
+  const dispatch = useDispatch()
+  const collection = useSelector(state=> state.InputValue)
+
+  console.log(collection)
+
   const handleClick = () => {
-    let value;
-    setNewElement((value = [...newElement, 1]));
+  
+    dispatch ({
+      type: "OPEN_MODAL",
+      value: true
+    })
   };
 
   return (
@@ -18,8 +26,8 @@ const Container = () => {
           People
         </div>
         <div className="inputs-container">
-          {newElement.map(() => {
-            return <SingleInputField/>;
+          {collection.map((e) => {
+            return <SingleInputField key={e.value.id} data={e.value}/>;
           })}
         </div>
         <button
@@ -30,7 +38,7 @@ const Container = () => {
           +
         </button>
       </div>
-      <Popup/>
+      <Popup />
     </div>
   );
 };

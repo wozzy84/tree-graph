@@ -1,12 +1,33 @@
-import React from 'react';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+const SingleInputField = props => {
+  const dispatch = useDispatch();
+  const { value, id } = props.data;
 
-const SingleInputField = (props) => {
-    return(
-        <div className="input-area">
-            <div className="single-input-field"></div>
-        </div>
-    )
-}
+  const handleClick = e => {
+    dispatch({
+      type: "DELETE_VALUE",
+      id: e.currentTarget.id
+    });
+  };
 
-export default SingleInputField
+  return (
+  
+      <div className="single-input-field">
+        <span className="single-input-field__bar">
+          <p className="single-input-field__text">{value}</p>
+          <button
+            className="single-input-field__button"
+            id={id}
+            onClick={handleClick}
+          >
+            <span className="single-input-field__button-minus"></span>
+          </button>
+        </span>
+      </div>
+
+  );
+};
+
+export default SingleInputField;
