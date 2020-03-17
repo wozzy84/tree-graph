@@ -6,7 +6,6 @@
   align-items: center;
   padding-top: 50px;
   padding-bottom: 50px;
-
 }
 
 .main-frame {
@@ -17,10 +16,6 @@
   padding-top: 30px;
   padding-bottom: 30px;
   border-left: 1px solid lightgrey;
-
-}
-.inputs-container {
-
 }
 
 .main-frame__people {
@@ -52,5 +47,6 @@
   color: white;
   font-size: 32px;
   font-weight: bolder;
-  box-shadow: 2px 3px 7px 1.2px rgba(42,231,228,0.32); 
+  box-shadow: 2px 3px 7px 1.2px rgba(42, 231, 228, 0.32);
+  outline:none;
 }

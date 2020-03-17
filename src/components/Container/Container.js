@@ -1,22 +1,25 @@
 import React from "react";
 import SingleInputField from "../SingleInputField/SingleInputField";
-import MultipleInputuField from "../MultipleInputField/MultipleInputField"
+import MultipleInputuField from "../MultipleInputField/MultipleInputField";
 import Popup from "../Popup/Popup";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = () => {
-
-  const dispatch = useDispatch()
-  const collection = useSelector(state=> state.InputValue)
-
-  console.log(collection)
+  const dispatch = useDispatch();
+  const collection = useSelector(state => state.InputValue);
 
   const handleClick = () => {
-  
-    dispatch ({
+    dispatch({
       type: "OPEN_MODAL",
-      value: true
-    })
+      payload: {
+        value: true,
+        whoOpened: "main"
+      }
+    });
+    dispatch({
+      type: "CURRENT_FIELD",
+      fieldid: null
+    });
   };
 
   return (
@@ -26,12 +29,11 @@ const Container = () => {
           People
         </div>
         <div className="inputs-container">
-          {collection.map((e) => {
-            if (e.value.singleInput===true) {
-              return <SingleInputField key={e.value.id} data={e.value}/>;
+          {collection.map(e => {
+            if (e.value.singleInput === true) {
+              return <SingleInputField key={e.value.id} data={e.value} />;
             }
-            return <MultipleInputuField key={e.value.id} data={e.value}/>
-            
+            return <MultipleInputuField key={e.value.id} data={e.value} />;
           })}
         </div>
         <button

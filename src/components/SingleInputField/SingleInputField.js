@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const SingleInputField = props => {
   const dispatch = useDispatch();
@@ -8,26 +8,23 @@ const SingleInputField = props => {
   const handleClick = e => {
     dispatch({
       type: "DELETE_VALUE",
-      id: e.currentTarget.id,
- 
+      id: e.currentTarget.id
     });
   };
 
   return (
-  
-      <div className="single-input-field">
-        <span className="single-input-field__bar">
-          <p className="single-input-field__text">{value}</p>
-          <button
-            className="single-input-field__button"
-            id={id}
-            onClick={handleClick}
-          >
-            <span className="single-input-field__button-minus"></span>
-          </button>
-        </span>
-      </div>
-
+    <div className="single-input-field">
+      <span className="single-input-field__bar">
+        <p className="single-input-field__text">{value}</p>
+        <button
+          className="single-input-field__button"
+          id={id}
+          onClick={handleClick}
+        >
+          <span className="single-input-field__button-minus"></span>
+        </button>
+      </span>
+    </div>
   );
 };
 

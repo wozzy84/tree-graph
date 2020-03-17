@@ -2,47 +2,63 @@ import React from "react";
 import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import shortid from 'shortid'
+import shortid from "shortid";
 
 const modalStyle = {
   content: {
+    display: "flex",
+    justifyContent: "center",
+    width: "400px",
+    height: "200px",
     top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    padding: "0",
+    borderRadius: "8px",
+    background: "linear-gradient(#a376f4, #7176f7)",
+    boxShadow: "2px 3px 7px 1px rgba(0, 0, 0, 0.22)"
   }
 };
-
 
 Modal.setAppElement("#root");
 
 const Popup = () => {
   const dispatch = useDispatch();
-
-  const modalIsOpen = useSelector(state => state.OpenModal);
+  const modalIsOpen = useSelector(state => state.OpenModal.value);
+  const whoOpened = useSelector(state => state.OpenModal.whoOpened);
+  const parentId = useSelector(state => state.CurrentField);
   const [localInput, setLocalInput] = useState("");
 
-  let subtitle;
-
-  const afterOpenModal = () => {
-    subtitle.style.color = "#f00";
-  };
-
   const closeModal = () => {
-    dispatch({
-      type: "INPUT_VALUE",
-      value: localInput,
-      id: shortid.generate(),
-      singleInput: true
-      
-    });
+    if (whoOpened === "main" && localInput.length) {
+      dispatch({
+        type: "INPUT_VALUE",
+        value: localInput,
+        id: shortid.generate(),
+        singleInput: true,
+        subCategories: []
+      });
+    } else if (whoOpened === "sub" && localInput.length) {
+      dispatch({
+        type: "SUB_VALUE",
+        payload: {
+          id: shortid.generate(),
+          category: localInput,
+          parentId: parentId
+        }
+      });
+    }
+
     dispatch({
       type: "OPEN_MODAL",
-      value: false
+      payload: {
+        value: false,
+        whoOpened: ""
+      }
     });
-
     setLocalInput("");
   };
 
@@ -50,24 +66,32 @@ const Popup = () => {
     setLocalInput(e.currentTarget.value);
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    e.stopPropagation()
+    closeModal(); 
+  }
+
   return (
     <div>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalStyle}
       >
-        <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form onSubmit={closeModal}>
-          <input value={localInput} onChange={handleChange} />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <div className="modal__container">
+          <button className="modal__button"  type="submit" onClick={closeModal}>
+            +
+          </button>
+          <div className="modal__text">Type something below...</div>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="modal__input"
+              value={localInput}
+              onChange={handleChange}
+            />
+          </form>
+        </div>
       </Modal>
     </div>
   );
