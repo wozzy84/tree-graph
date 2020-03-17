@@ -34,7 +34,8 @@ const Popup = () => {
     dispatch({
       type: "INPUT_VALUE",
       value: localInput,
-      id: shortid.generate()
+      id: shortid.generate(),
+      singleInput: true
       
     });
     dispatch({

@@ -1,6 +1,6 @@
 import React from "react";
 import SingleInputField from "../SingleInputField/SingleInputField";
-import { useState } from "react";
+import MultipleInputuField from "../MultipleInputField/MultipleInputField"
 import Popup from "../Popup/Popup";
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -27,7 +27,11 @@ const Container = () => {
         </div>
         <div className="inputs-container">
           {collection.map((e) => {
-            return <SingleInputField key={e.value.id} data={e.value}/>;
+            if (e.value.singleInput===true) {
+              return <SingleInputField key={e.value.id} data={e.value}/>;
+            }
+            return <MultipleInputuField key={e.value.id} data={e.value}/>
+            
           })}
         </div>
         <button

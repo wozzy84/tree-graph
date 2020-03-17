@@ -8,7 +8,8 @@ const SingleInputField = props => {
   const handleClick = e => {
     dispatch({
       type: "DELETE_VALUE",
-      id: e.currentTarget.id
+      id: e.currentTarget.id,
+ 
     });
   };
 

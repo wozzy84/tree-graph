@@ -1,5 +1,5 @@
 
-.single-input-field{
+.multiple-input-field{
     position: relative;
     color: #4B597B;
     min-height: 50px;
@@ -14,9 +14,7 @@
     
 }
 
-
-
-.single-input-field::before {
+.multiple-input-field::before {
     display: block;
     content: "And";
     width: 20px;
@@ -31,7 +29,7 @@
     
 }
 
-.single-input-field__bar::after {
+.multiple-input-field__bar::after {
     display: block;
     content: "";
 
@@ -44,8 +42,9 @@
 
 }
 
-.single-input-field__bar {
-    display: flex;
+.multiple-input-field__bar {
+    display: block;
+    
     min-height: 50px;
     max-width: 270px;
     background-color: white;
@@ -66,7 +65,13 @@
 
 }
 
-.single-input-field__button {
+.multiple-input-field__header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.multiple-input-field__button {
     border-radius: 50%;
     border: none;
     min-width: 25px;
@@ -80,13 +85,33 @@
     
 }
 
-.single-input-field__button-minus{
+.multiple-input-field__button-minus{
     display: block;
     width: 10px;
     height: 3px;
     background-color: white;
 }
 
-.single-input-field__text {
-    padding: 4px;
+.multiple-input-field__text {
+    padding: 6px;
+    border: 1px solid lightgray;
+    width: 80%;
+
+}
+
+.list-container {
+    border-left: 1px solid lightgray;
+    margin-left: 30px;
+}
+
+.list:first-child {
+    padding-top: 20px
+}
+
+.list__element {
+    padding: 6px;
+    border: 1px solid lightgray;
+    margin-left: 20px;
+    margin-bottom: 5px;
+
 }
